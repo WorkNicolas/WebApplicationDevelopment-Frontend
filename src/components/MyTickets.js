@@ -8,7 +8,7 @@
  * @returns {MyTickets}
  */
 
-import AddTicket from "./Ticket/AddTicket";
+import ListInventory from "./Ticket/ListInventory";
 
 const MyTickets = () => {
     return (
@@ -26,7 +26,7 @@ const MyTickets = () => {
                     <option value="progress">In Progress</option>
                     <option value="cancelled">Cancelled</option>
                 </select>
-                <AddTicket />
+                <ListInventory />
 
             </div>
         </>
