@@ -6,9 +6,14 @@
  * @description Contains the CSS file for App.js
  * 
  */
+ * {
+    box-sizing: border-box;
+    border-collapse: collapse;
+ }
  html {
     margin-top: -1.2%;
     padding: 0;
+    ;
  }
  :root {
     font-size: 16px;
@@ -142,12 +147,23 @@ input[type="text"], input[type="email"], input[type="number"] input[type="passwo
     width: 75%;
     padding: 1.6%;
 }
+.panel-body {
+    background-color: var(--bg-unique);
+    margin-left: 1.6%;
+    width: 75%;
+    padding: 1.6%;
+}
 .panel h3 {
     border-bottom: 1px solid var(--bg-tertiary);
 }
 legend {
     font-size: 24px;
     font-weight: bold;
+}
+/* Table */
+.panel-body th, tr {
+    border: 1px solid var(--text-secondary);
+    padding: 10px;
 }
 /* Bold */
 .bold {
