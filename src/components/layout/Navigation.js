@@ -22,7 +22,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons/faPenToSquare';
 
 const Navigation = () => {
     return (
-        <nav className="navbar">
+        <nav className="my-navbar">
             <Header />
             <ul className="navbar-nav">
                 <li className="navbar-item">
