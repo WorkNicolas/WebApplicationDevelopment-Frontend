@@ -32,6 +32,7 @@ const getUsername = () => {
 }
 
 const clearJWT = () => {
+    console.log("clearing JWT");
     if (typeof window !== "undefined") {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('username');

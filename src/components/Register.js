@@ -22,6 +22,10 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { signup } from '../datasource/api-user';
 import { authenticate } from './auth/auth-helper';
 
+// redux
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';
+
 const Register = () => {
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
@@ -31,6 +35,7 @@ const Register = () => {
         password: '',
     });
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,6 +54,7 @@ const Register = () => {
                 authenticate(response.token,()=>{
                     navigate('/');
                 });
+                dispatch(login());
             } else {
                 setError(response.message);
             }

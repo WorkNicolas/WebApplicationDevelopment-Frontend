@@ -19,8 +19,19 @@ import { faTicket } from '@fortawesome/free-solid-svg-icons/faTicket';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons/faCircleQuestion';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons/faRightToBracket';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons/faPenToSquare';
+import { faSignOut } from '@fortawesome/free-solid-svg-icons/faSignOut';
+
+// api
+import { clearJWT } from '../auth/auth-helper';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../redux/userSlice';
 
 const Navigation = () => {
+    const isLogin = useSelector((state) => state.user.isLogin);
+    const dispatch = useDispatch();
+
     return (
         <nav className="my-navbar">
             <Header />
@@ -55,12 +66,35 @@ const Navigation = () => {
                         <span>Register</span>
                     </NavLink>
                 </li> */}
-                <li className="navbar-item">
-                    <NavLink className="link-text last-item" to="/login">
-                        <FontAwesomeIcon icon={faRightToBracket} size="3x" />
-                        <span>Login</span>
-                    </NavLink>
-                </li>
+                {
+                    !isLogin && (
+                        <li className="navbar-item">
+                            <NavLink className="link-text last-item" to="/login">
+                                <FontAwesomeIcon icon={faRightToBracket} size="3x" />
+                                <span>Login</span>
+                            </NavLink>
+                        </li>
+                    )
+                }
+                {
+                    isLogin && (
+                        <li className="navbar-item"
+                            style={{
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => {
+                                clearJWT();
+                                dispatch(logout());
+                            }}
+                        >
+
+                            <span className="link-text last-item">
+                                <FontAwesomeIcon icon={faSignOut} size="3x" />
+                                <span>Logout</span>
+                            </span>
+                        </li>
+                    )
+                }
             </ul>
         </nav>
     );

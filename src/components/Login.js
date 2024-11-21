@@ -20,9 +20,14 @@ import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 import { signin } from "../datasource/api-user";
 import { authenticate } from "./auth/auth-helper";
 
+// redux
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';
+
 const Login = () => {
   const state = useLocation();
   const { from } = state || { from: { pathname: "/" } };
+  const dispatch = useDispatch();
 
   const [errorMsg, setErrorMsg] = useState("");
   const [formData, setFormData] = useState({
@@ -46,6 +51,7 @@ const Login = () => {
       .then((response) => {
         if (response && response.success) {
           authenticate(response.token, () => {
+            dispatch(login());
             navigate(from || "/", { replace: true });
           });
         } else {
