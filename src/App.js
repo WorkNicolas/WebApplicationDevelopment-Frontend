@@ -25,7 +25,7 @@ import Login from './components/Login';
 import TicketForm from './components/TicketForm';
 import MyTickets from './components/MyTickets';
 import Services from './components/Services';
-
+import TicketInfo from './components/Ticket/TicketInfo';
 
 
 function App() {
@@ -46,6 +46,7 @@ function App() {
             <Route path="/mytickets" element={<MyTickets />} />
             <Route path="/services" element={<Services />} />
             <Route path="/ticketform" elmeent={<TicketForm />} />
+            <Route path="/ticketinfo/:id" element={<TicketInfo />} />
         </Routes>
       </main>
       <Footer />
