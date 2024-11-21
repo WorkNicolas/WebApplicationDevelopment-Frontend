@@ -20,6 +20,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 
 //API
 import { signup } from '../datasource/api-user';
+import { authenticate } from './auth/auth-helper';
 
 const Register = () => {
     const [error, setError] = useState(null);
@@ -45,7 +46,9 @@ const Register = () => {
         signup(formData).then((response) => {
             if(response && response.success){
                 setError(null);
-                navigate('/');
+                authenticate(response.token,()=>{
+                    navigate('/');
+                });
             } else {
                 setError(response.message);
             }
