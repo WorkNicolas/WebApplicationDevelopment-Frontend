@@ -49,12 +49,12 @@ const Navigation = () => {
                         <span>F.A.Q.</span>
                     </NavLink>
                 </li>
-                <li className="navbar-item">
+                {/* <li className="navbar-item">
                     <NavLink className="link-text last-item" to="/register">
                         <FontAwesomeIcon icon={faPenToSquare} size="3x" />
                         <span>Register</span>
                     </NavLink>
-                </li>
+                </li> */}
                 <li className="navbar-item">
                     <NavLink className="link-text last-item" to="/login">
                         <FontAwesomeIcon icon={faRightToBracket} size="3x" />
