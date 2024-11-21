@@ -42,10 +42,10 @@ const Register = () => {
         navigate('/');
     };
     return (
-        <div>
+        <div className="mt-3">
             <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <legend>Registration Form</legend>
+                <fieldset className="custom-fieldset">
+                    <legend className="custom-legend">Registration Form</legend>
                     <div class="block">
                         <FontAwesomeIcon icon={faCircleInfo} />
                         <label for="name"></label>

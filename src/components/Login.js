@@ -38,10 +38,10 @@ const Login = () => {
         navigate('/');
     };
     return (
-        <div>
+        <div className="mt-3">
             <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <legend>Login Form</legend>
+                <fieldset className="custom-fieldset">
+                    <legend className="custom-legend">Login Form</legend>
                     <div class="block">
                         <FontAwesomeIcon icon={faEnvelope} />
                         <label for="email"></label>
