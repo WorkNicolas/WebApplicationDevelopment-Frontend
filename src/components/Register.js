@@ -18,10 +18,13 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 
+//API
+import { signup } from '../datasource/api-user';
+
 const Register = () => {
+    const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        username: '',
         phone: '',
         email: '',
         password: '',
@@ -39,33 +42,44 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
-        navigate('/');
+        signup(formData).then((response) => {
+            if(response && response.success){
+                setError(null);
+                navigate('/');
+            } else {
+                setError(response.message);
+            }
+        }).catch((error) => {
+            setError(error.message);
+        });
     };
+    
     return (
         <div className="mt-3">
             <form onSubmit={handleSubmit}>
                 <fieldset className="custom-fieldset">
                     <legend className="custom-legend">Registration Form</legend>
-                    <div class="block">
+                    <div className="block">
                         <FontAwesomeIcon icon={faCircleInfo} />
-                        <label for="name"></label>
-                        <input type="text" id="name" name="name" placeholder="Name" />
+                        <label htmlFor="username"></label>
+                        <input type="text" id="username" name="username" placeholder="Name" onChange={handleChange} />
                     </div>
-                    <div class="block">
+                    <div className="block">
                         <FontAwesomeIcon icon={faPhone} />
-                        <label for="phone"></label>
-                        <input type="text" id="phone" name="phone" placeholder="Phone Number" />
+                        <label htmlFor="phone"></label>
+                        <input type="text" id="phone" name="phone" placeholder="Phone Number" onChange={handleChange} />
                     </div>
-                    <div class="block">
+                    <div className="block">
                         <FontAwesomeIcon icon={faEnvelope} />
-                        <label for="email"></label>
-                        <input type="text" id="email" name="email" placeholder="Email" />
+                        <label htmlFor="email"></label>
+                        <input type="text" id="email" name="email" placeholder="Email" onChange={handleChange} />
                     </div>
                     <div className="block">
                         <FontAwesomeIcon icon={faLock} />
-                        <label for="password"></label>
-                        <input type="text" id="password" name="password" placeholder="Password" />
+                        <label htmlFor="password"></label>
+                        <input type="text" id="password" name="password" placeholder="Password" onChange={handleChange} />
                     </div>
+                    {error && <p className="text-danger">{error}</p>}
                 </fieldset>
                 <input type="submit" value="Submit" />
                 <input type="reset" value="Reset" />
