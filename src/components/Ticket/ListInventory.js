@@ -1,17 +1,30 @@
 /**
- * @file AddTicket.js
+ * @file ListInventory.js
  * @author Carl Nicolas Mendoza
  * @id 301386435
  * @date 2024-10-18
  * @description Add ticket
  * 
- * @returns {AddTicket}
+ * @returns {ListInventory}
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { list } from "../../datasource/api-ticket";
 
-const AddTicket = () => {
+const ListInventory = () => {
     let [ticketList, setTicketList] = useState([]);
+
+
+    useEffect(() => {
+        list().then((data) => {
+            if (data) {
+                setTicketList(data);
+            }
+        })
+    }).catch (err => {
+        alert(err.message);
+        console.log(err);
+    })
 
     return (
         <>
@@ -42,4 +55,4 @@ const AddTicket = () => {
     );
 }
 
-export default AddTicket;
+export default ListInventory;

@@ -121,9 +121,15 @@ main h2 {
 }
 /* Inputs */
 fieldset {
-    margin-bottom: 10px;
-    margin: 1.6%;
+    margin-bottom: 10px !important;
+    margin: 1.6% !important;
 }
+fieldset.custom-fieldset {
+    border: 1px solid #ccc; /* Original border style */
+    padding: 10px; /* Original padding */
+    position: relative;
+}
+
 textarea {
     margin-top: 10px;
     display: block;
@@ -156,10 +162,22 @@ input[type="text"], input[type="email"], input[type="number"] input[type="passwo
 .panel h3 {
     border-bottom: 1px solid var(--bg-tertiary);
 }
+
 legend {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 24px !important;
+    font-weight: bold !important;
 }
+
+legend.custom-legend {
+    width: auto;
+    font-weight: bold;
+    position: absolute; 
+    top: -20px; 
+    left: 10px;
+    background-color: white; 
+    padding: 0 5px;
+}
+
 /* Table */
 .panel-body th, tr {
     border: 1px solid var(--text-secondary);
@@ -196,9 +214,14 @@ input[type="submit"]:active, input[type="reset"]:active {
     box-sizing: border-box;
     font-family: sans-serif;
 }
+
+.my-navbar {
+    z-index: 10;
+}
+
 /* Small Screens */
 @media only screen and (max-width: 600px) {
-    .navbar {
+    .my-navbar {
         position: fixed;
         bottom: 0;
         width: 100vw;
@@ -250,7 +273,7 @@ input[type="submit"]:active, input[type="reset"]:active {
 }
 /* Larger Screens */
 @media only screen and (min-width: 600px) {
-    .navbar {
+    .my-navbar {
         top: 0;
         width: 5rem;
         height: 100vh;
@@ -296,10 +319,10 @@ input[type="submit"]:active, input[type="reset"]:active {
         min-width: 2rem;
         margin: 0 1.5rem;
     }
-    .navbar:hover {
+    .my-navbar:hover {
         width: 16rem;
     }
-    .navbar:hover span{
+    .my-navbar:hover span{
         display: flex;
         flex-direction: row;
         color: var(--text-primary);
