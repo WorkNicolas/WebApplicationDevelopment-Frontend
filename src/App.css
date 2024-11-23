@@ -136,6 +136,11 @@ textarea {
     width: 95%;
     height: 150px;
 }
+textarea.message {
+    margin-left: 1.6%;
+    background: transparent;
+    border:1px solid var(--text-secondary);
+}
 /* Inputs */
 input[type="submit"], input[type="reset"] {
     border-radius: 5px;
