@@ -37,9 +37,10 @@ const Services = () => {
     };
     
     return (
-        <><div>
+        <><div className="panel">
                 <h1>Frequently Asked Questions</h1>
-                <div className="panel">
+            </div>
+                <div className="panel-body">
                     {faqs.map((faq, index) => (
                         <div key={index} style={{ marginBottom: "15px" }}>
                             <button
@@ -74,7 +75,7 @@ const Services = () => {
                         </div>
                     ))}
                 </div>
-            </div></>
+            </>
 
     );
 }
