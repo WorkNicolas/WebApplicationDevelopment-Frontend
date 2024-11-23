@@ -80,9 +80,4 @@ const Services = () => {
     );
 }
 
-
-//import React, { useState } from 'react';
-
-
-
 export default Services;
