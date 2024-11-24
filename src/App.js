@@ -28,6 +28,7 @@ import Services from './components/Services';
 import TicketInfo from './components/Ticket/TicketInfo';
 import Announcement from './components/Announcement';
 import EditTicket from './components/Ticket/EditTicket';
+import PrivateRoute from './components/auth/PrivateRoute';
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/mytickets" element={<MyTickets />} />
+            <Route path="/mytickets" element={<PrivateRoute><MyTickets /></PrivateRoute>} />
             <Route path="/services" element={<Services />} />
             <Route path="/ticketform" element={<TicketForm />} />
             <Route path="/ticketinfo/:id" element={<TicketInfo />} />

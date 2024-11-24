@@ -6,7 +6,7 @@ function PrivateRoute({ children }){
     let location = useLocation();
 
     if(!isAuthenticated()){
-        return <Navigate to="/users/signin" state={{ from: location.pathname}} />
+        return <Navigate to="/login" state={{ from: location.pathname}} />
     }
 
     return children
