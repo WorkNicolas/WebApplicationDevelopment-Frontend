@@ -2,7 +2,11 @@ let apiURL = process.env.REACT_APP_APIURL;
 
 const signin = async (user) => {
     try {
+<<<<<<< HEAD
         let response = await fetch(apiURL + '/users/signin', {
+=======
+        let response = await fetch(apiURL + '/api/users/signin', {
+>>>>>>> origin/master
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -18,7 +22,11 @@ const signin = async (user) => {
 
 const signup = async (user) => {
     try {
+<<<<<<< HEAD
         let response = await fetch(apiURL + '/users/create', {
+=======
+        let response = await fetch(apiURL + '/api/users/create', {
+>>>>>>> origin/master
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

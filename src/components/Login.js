@@ -84,7 +84,11 @@ const Login = () => {
             <FontAwesomeIcon icon={faLock} />
             <label htmlFor="password"></label>
             <input
+<<<<<<< HEAD
               type="text"
+=======
+              type="password"
+>>>>>>> origin/master
               id="password"
               name="password"
               placeholder="Password"

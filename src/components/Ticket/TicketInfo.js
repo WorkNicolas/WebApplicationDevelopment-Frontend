@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CommentBox from "./CommentBox";
 import Avatar from "./Avatar";
+import { getTicket } from "../../datasource/api-ticket";
+import { getTicketIteration } from "../../datasource/api-ticketiteration";
 
 const TicketInfo = () => {
   const { id } = useParams();
+  const [ticketIteration, setTicketIteration] = useState("");
   const [newComment, setNewComment] = useState("");
-  const [ticket, setTicket] = useState(null);
+  const [ticket, setTicket] = useState();
   const [comments, setComments] = useState([
     {
       username: "Stephen Hui",
@@ -26,8 +29,28 @@ const TicketInfo = () => {
   ]);
 
   useEffect(() => {
-    console.log(id);
+    getTicket().then((data) => {
+        if (data) {
+            setTicket(data);
+        }
+    }).catch(err => {
+        alert(err.message);
+        console.log(err);
+    });
+    getTicketIteration().then((data) => {
+      if (data) {
+        setTicketIteration(data);
+      }
+    }).catch(err => {
+      alert(err.message);
+      console.log(err);
+    });
   }, []);
+
+  // Early return if ticket is not loaded yet
+  if (!ticket) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="my-3 mx-3">
@@ -40,11 +63,11 @@ const TicketInfo = () => {
           <div className="d-flex gap-4">
             <div className="d-flex flex-column">
               <span>Created:</span>
-              <span>{"6d ago"}</span>
+              <span>{ticket.createdAt}</span>
             </div>
             <div className="d-flex flex-column">
               <span>Status:</span>
-              <span>{"Closed"}</span>
+              <span>{ticket.status}</span>
             </div>
           </div>
         </div>
@@ -56,11 +79,11 @@ const TicketInfo = () => {
         <div className="p-3 d-flex gap-4">
           <div className="d-flex flex-column">
             <span className="h6 text-muted">{"Created by"}</span>
-            <span>{"Stephen"}</span>
+            <span>{ticket.userId}</span>
           </div>
           <div className="d-flex flex-column">
             <span className="h6 text-muted">{"Priority"}</span>
-            <span>{"High"}</span>
+            <span>{ticket.priority}</span>
           </div>
         </div>
       </div>

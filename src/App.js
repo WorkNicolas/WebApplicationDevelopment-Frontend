@@ -22,11 +22,20 @@ import Home from './components/Home';
 import About from './components/About';
 import Register from './components/Register';
 import Login from './components/Login';
+<<<<<<< HEAD
 import TicketForm from './components/TicketForm';
 import MyTickets from './components/MyTickets';
 import Services from './components/Services';
 import TicketInfo from './components/Ticket/TicketInfo';
 
+=======
+import TicketForm from './components/Ticket/TicketForm';
+import MyTickets from './components/MyTickets';
+import Services from './components/Services';
+import TicketInfo from './components/Ticket/TicketInfo';
+import Announcement from './components/Announcement';
+import EditTicket from './components/Ticket/EditTicket';
+>>>>>>> origin/master
 
 function App() {
   return (
@@ -45,8 +54,15 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/mytickets" element={<MyTickets />} />
             <Route path="/services" element={<Services />} />
+<<<<<<< HEAD
             <Route path="/ticketform" elmeent={<TicketForm />} />
             <Route path="/ticketinfo/:id" element={<TicketInfo />} />
+=======
+            <Route path="/ticketform" element={<TicketForm />} />
+            <Route path="/ticketinfo/:id" element={<TicketInfo />} />
+            <Route path="/editticket/:id" element={<EditTicket />} />
+            <Route path="/announcement" element={<Announcement />} />
+>>>>>>> origin/master
         </Routes>
       </main>
       <Footer />
