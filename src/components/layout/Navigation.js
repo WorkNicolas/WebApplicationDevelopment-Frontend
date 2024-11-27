@@ -10,6 +10,7 @@
 
 import { NavLink } from 'react-router-dom';
 import Header from './Header';
+import { useEffect } from 'react';
 
 // Font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -22,15 +23,21 @@ import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons/faSignOut';
 
 // api
-import { clearJWT } from '../auth/auth-helper';
+import { clearJWT,isAuthenticated } from '../auth/auth-helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../redux/userSlice';
+import { logout ,login} from '../../redux/userSlice';
 
 const Navigation = () => {
     const isLogin = useSelector((state) => state.user.isLogin);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(isAuthenticated()) {
+            dispatch(login());
+        }
+    }, []);
 
     return (
         <nav className="my-navbar">
