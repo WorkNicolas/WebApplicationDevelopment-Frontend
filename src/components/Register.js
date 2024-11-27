@@ -17,6 +17,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 //API
 import { signup } from '../datasource/api-user';
@@ -33,6 +34,7 @@ const Register = () => {
         phone: '',
         email: '',
         password: '',
+        role: 'user',
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -47,7 +49,6 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
         signup(formData).then((response) => {
             if(response && response.success){
                 setError(null);
@@ -87,6 +88,13 @@ const Register = () => {
                         <FontAwesomeIcon icon={faLock} />
                         <label htmlFor="password"></label>
                         <input type="password" id="password" name="password" placeholder="Password" onChange={handleChange} />
+                    </div>
+                    <div className="block">
+                        <FontAwesomeIcon icon={faUser} />
+                        <select name="role" id="role" onChange={handleChange} style={{ marginLeft: '1.6%' }}>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
                     </div>
                     {error && <p className="text-danger">{error}</p>}
                 </fieldset>
