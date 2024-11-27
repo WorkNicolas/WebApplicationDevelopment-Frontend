@@ -31,6 +31,14 @@ const getUsername = () => {
     return sessionStorage.getItem('username');
 }
 
+const getUserId = () => {
+    if (typeof window === "undefined") {
+        return false;
+    }
+    let decoded = jwtDecode(getToken());
+    return decoded.id;
+}
+
 const clearJWT = () => {
     console.log("clearing JWT");
     if (typeof window !== "undefined") {
@@ -39,4 +47,4 @@ const clearJWT = () => {
     }
 }
 
-export { authenticate, isAuthenticated, getToken, getUsername, clearJWT }
+export { authenticate, isAuthenticated, getToken, getUsername, clearJWT, getUserId }
