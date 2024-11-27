@@ -11,6 +11,7 @@
 import { NavLink } from 'react-router-dom';
 import Header from './Header';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -32,7 +33,8 @@ import { logout ,login} from '../../redux/userSlice';
 const Navigation = () => {
     const isLogin = useSelector((state) => state.user.isLogin);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    
     useEffect(() => {
         if(isAuthenticated()) {
             dispatch(login());
@@ -98,6 +100,7 @@ const Navigation = () => {
                             onClick={() => {
                                 clearJWT();
                                 dispatch(logout());
+                                navigate('/');
                             }}
                         >
 
