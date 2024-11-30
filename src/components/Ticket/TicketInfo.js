@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import CommentBox from "./CommentBox";
 import Avatar from "./Avatar";
 import { getTicket } from "../../datasource/api-ticket";
-import { getTicketIteration } from "../../datasource/api-ticketiteration";
+import { create as createComment } from "../../datasource/api-ticketiteration";
+import { getUsername } from "../auth/auth-helper";
 
 const TicketInfo = () => {
   const { id } = useParams();
+  const username = getUsername();
   const [ticketIteration, setTicketIteration] = useState("");
   const [newComment, setNewComment] = useState("");
   const [ticket, setTicket] = useState();
@@ -28,23 +30,36 @@ const TicketInfo = () => {
     },
   ]);
 
-  useEffect(() => {
-    getTicket().then((data) => {
+  const submitComment = async (product) => {
+    try {
+      const response = await createComment(product);
+      console.log(response);
+
+      setNewComment("");
+
+      getTicket(id).then((data) => {
         if (data) {
-            setTicket(data);
+          console.log(data[0]);
+          setTicket(data[0]);
         }
-    }).catch(err => {
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getTicket(id)
+      .then((data) => {
+        if (data) {
+          console.log(data[0]);
+          setTicket(data[0]);
+        }
+      })
+      .catch((err) => {
         alert(err.message);
         console.log(err);
-    });
-    getTicketIteration().then((data) => {
-      if (data) {
-        setTicketIteration(data);
-      }
-    }).catch(err => {
-      alert(err.message);
-      console.log(err);
-    });
+      });
   }, []);
 
   // Early return if ticket is not loaded yet
@@ -100,7 +115,19 @@ const TicketInfo = () => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           />
-          <button className="btn btn-outline-secondary">Post</button>
+          <button
+            className="btn btn-outline-secondary"
+            type="button"
+            onClick={() =>
+              submitComment({
+                ticketID: id,
+                comment: newComment,
+                username: username,
+              })
+            }
+          >
+            Post
+          </button>
         </div>
         <div className="p-3 d-flex flex-column gap-4 my-4">
           {comments.map((comment, index) => (
