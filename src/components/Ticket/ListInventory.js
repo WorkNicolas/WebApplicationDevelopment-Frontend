@@ -12,18 +12,20 @@ import { useEffect, useState } from "react";
 import { list, remove } from "../../datasource/api-ticket";
 import { Link } from "react-router-dom";
 
-const ListInventory = () => {
-    let [ticketList, setTicketList] = useState([]);
+const ListInventory = ({ filter }) => {
+    const [ticketList, setTicketList] = useState([]);
 
     useEffect(() => {
-        list().then((data) => {
-            if (data) {
-                setTicketList(data);
-            }
-        }).catch(err => {
-            alert(err.message);
-            console.log(err);
-        });
+        list()
+            .then((data) => {
+                if (data) {
+                    setTicketList(data);
+                }
+            })
+            .catch((err) => {
+                alert(err.message);
+                console.error(err);
+            });
     }, []);
 
     const handleDelete = async (id) => {
@@ -38,6 +40,12 @@ const ListInventory = () => {
             }
         }
     };
+
+    const filteredTickets = ticketList.filter((ticket) => {
+        if (filter === "all") return true;
+        if (filter === "open") return ticket.status === "NEW" || ticket.status === "progress";
+        return ticket.status === filter;
+    });
 
     return (
         <>
@@ -56,30 +64,26 @@ const ListInventory = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {ticketList.map((ticket, i) => {
-                        return (
-                            <tr key={i}>
-                                <td>
-                                    <Link to={`/ticketinfo/${ticket._id}`}>
-                                        {ticket.description || ''}
-                                    </Link>
-                                </td>
-                                <td>{ticket.status || ''}</td>
-                                <td>{ticket.priority}</td>
-                                    <td>{ticket.updatedAt || ''}</td>
-                                <td>
-                                    <Link to={`/editticket/${ticket._id}`}>
-                                        <button>Edit</button>
-                                    </Link>
-                                </td>
-                                <td>
-                                    <button onClick={() => handleDelete(ticket._id)}>
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                    {filteredTickets.map((ticket) => (
+                        <tr key={ticket._id}>
+                            <td>
+                                <Link to={`/ticketinfo/${ticket._id}`}>
+                                    {ticket.description || ""}
+                                </Link>
+                            </td>
+                            <td>{ticket.status || ""}</td>
+                            <td>{ticket.priority}</td>
+                            <td>{ticket.updatedAt || ""}</td>
+                            <td>
+                                <Link to={`/editticket/${ticket._id}`}>
+                                    <button>Edit</button>
+                                </Link>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDelete(ticket._id)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </>
