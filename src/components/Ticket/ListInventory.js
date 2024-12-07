@@ -11,10 +11,11 @@
 import { useEffect, useState } from "react";
 import { list, remove } from "../../datasource/api-ticket";
 import { Link } from "react-router-dom";
+import { cancel } from "../../datasource/api-ticket";
 
 const ListInventory = ({ filter }) => {
     const [ticketList, setTicketList] = useState([]);
-
+    
     useEffect(() => {
         list()
             .then((data) => {
@@ -28,22 +29,22 @@ const ListInventory = ({ filter }) => {
             });
     }, []);
 
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this ticket?")) {
+    const handleCancel = async (id) => {
+        if (window.confirm("Are you sure you want to cancel this ticket?")) {
             try {
-                await remove(id);
-                setTicketList((prev) => prev.filter((ticket) => ticket._id !== id));
-                alert("Ticket deleted successfully");
+                const response = await cancel(id);
+                alert(response.message);
             } catch (err) {
                 alert(err.message);
                 console.error(err);
             }
         }
-    };
+    }
 
     const filteredTickets = ticketList.filter((ticket) => {
         if (filter === "all") return true;
-        if (filter === "open") return ticket.status === "NEW" || ticket.status === "progress";
+        if (filter === "open") return ticket.status === "NEW" || ticket.status === "In Progress" || ticket.status === "Dispatched";
+        if (filter === "closed") return ticket.status === "Closed" || ticket.status === "Cancelled";
         return ticket.status === filter;
     });
 
@@ -60,7 +61,7 @@ const ListInventory = ({ filter }) => {
                         <th className="fourth-item">Priority</th>
                         <th className="third-item">Updated</th>
                         <th className="fifth-item">Edit</th>
-                        <th className="sixth-item">Delete</th>
+                        <th className="sixth-item">Cancel</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,9 +80,12 @@ const ListInventory = ({ filter }) => {
                                     <button>Edit</button>
                                 </Link>
                             </td>
-                            <td>
-                                <button onClick={() => handleDelete(ticket._id)}>Delete</button>
-                            </td>
+                            <button 
+                                onClick={() => handleCancel(ticket._id)} 
+                                disabled={ticket.status === "Cancelled"}
+                            >
+                                Cancel
+                            </button>
                         </tr>
                     ))}
                 </tbody>
