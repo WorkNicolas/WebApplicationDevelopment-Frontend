@@ -1,19 +1,33 @@
-/**
- * @file Home.js
- * @author Carl Nicolas Mendoza
- * @id 301386435
- * @date 2024-10-11
- * @description Contains the welcome message, mission statement, and site map.
- * 
- * @returns {Home}
- */
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTicket, faBullhorn, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
     return (
-        <div>
-            <h1>Home</h1>
+        <div className="panel">
+            <h1>Welcome to Ticket Master</h1>
+            <div className="panel-body">
+                <p>
+                    Manage your tickets efficiently and stay updated with announcements. Use the options below to get started:
+                </p>
+                <div className="quick-links">
+                    <NavLink to="/mytickets" className="quick-link">
+                        <FontAwesomeIcon icon={faTicket} size="2x" />
+                        <p>View My Tickets</p>
+                    </NavLink>
+                    <NavLink to="/announcement" className="quick-link">
+                        <FontAwesomeIcon icon={faBullhorn} size="2x" />
+                        <p>View Announcements</p>
+                    </NavLink>
+                    <NavLink to="/services" className="quick-link">
+                        <FontAwesomeIcon icon={faCircleQuestion} size="2x" />
+                        <p>FAQ</p>
+                    </NavLink>
+                </div>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default Home;
