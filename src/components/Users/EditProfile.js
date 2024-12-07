@@ -8,7 +8,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
-import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+// import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 //API
 import { editProfile, getUser } from '../../datasource/api-user';
@@ -89,13 +89,14 @@ const EditUser = () => {
                         <label htmlFor="password"></label>
                         <input type="password" id="password" name="password" value={formData?.password || ''} placeholder="Password" onChange={handleChange} />
                     </div>
-                    <div className="block">
+                    {/* wont't let user change role */}
+                    {/* <div className="block">
                         <FontAwesomeIcon icon={faUser} />
                         <select name="role" id="role" onChange={handleChange} style={{ marginLeft: '1.6%' }} value={formData?.role}>
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>
-                    </div>
+                    </div> */}
                     {error && <p className="text-danger">{error}</p>}
                 </fieldset>
                 <input type="submit" value="Submit" />
