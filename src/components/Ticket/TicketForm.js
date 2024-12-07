@@ -59,7 +59,8 @@ const TicketForm = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="block">
+                    {/* always set to new */}
+                    {/* <div className="block">
                         <FontAwesomeIcon icon={faThermometer} />
                         <label htmlFor="status"></label>
                         <select
@@ -71,7 +72,7 @@ const TicketForm = () => {
                         >
                             <option value="In Progress">In Progress</option>
                         </select>
-                    </div>
+                    </div> */}
                     <div className="block">
                         <FontAwesomeIcon icon={faListCheck} />
                         <label htmlFor="priority"></label>
