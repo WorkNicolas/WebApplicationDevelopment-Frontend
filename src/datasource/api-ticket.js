@@ -1,13 +1,14 @@
+import { getToken } from "../components/auth/auth-helper";
 let apiURL = process.env.REACT_APP_APIURL;
 
 const list = async () => {
     try {
-        console.log(apiURL);
         let response = await fetch(apiURL + '/api/ticket/list', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             }
         })
         return await response.json();
@@ -22,7 +23,8 @@ const create = async (ticket) => {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             },
             body: JSON.stringify(ticket)
         })
@@ -38,7 +40,8 @@ const remove = async (id) => {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             }
         })
         return await response.json()
@@ -54,7 +57,8 @@ const getTicket = async (id) => {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             }
         })
         return await response.json();
@@ -70,7 +74,8 @@ const updateTicket = async (id, ticketData) => {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             },
             body: JSON.stringify(ticketData)
         });
@@ -93,7 +98,8 @@ const cancel = async (id) => {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             },
             body: JSON.stringify({ status: 'Cancelled' })
         });
