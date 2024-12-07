@@ -1,9 +1,9 @@
 import { getToken } from "../components/auth/auth-helper";
 let apiURL = process.env.REACT_APP_APIURL;
 
-const list = async () => {
+const list = async (userID) => {
     try {
-        let response = await fetch(apiURL + '/api/ticket/list', {
+        let response = await fetch(apiURL + '/api/ticket/list/' + userID, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
