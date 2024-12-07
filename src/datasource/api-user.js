@@ -38,7 +38,11 @@ const getUser = async (userId) => {
     try {
         let response = await fetch(apiURL + '/api/users/get/' + userId, {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + getToken() }
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
+            }
         })
         return await response.json()
     } catch (err) {
