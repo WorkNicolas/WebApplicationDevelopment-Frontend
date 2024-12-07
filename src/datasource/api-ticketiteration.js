@@ -1,3 +1,4 @@
+import { getToken } from "../components/auth/auth-helper";
 let apiURL = process.env.REACT_APP_APIURL;
 
 const list = async () => {
@@ -18,11 +19,12 @@ const list = async () => {
 
 const create = async (product) => {
     try {
-        let response = await fetch(apiURL + '/api/ticketiteration/add/', {
+        let response = await fetch(apiURL + '/api/ticketiteration/create/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getToken()
             },
             body: JSON.stringify(product)
         })
@@ -50,7 +52,7 @@ const remove = async (id) => {
 // Fetch a single ticket by ID
 const getTicketIteration = async (id) => {
     try {
-        let response = await fetch(apiURL + '/api/ticketiteration/' + id, {
+        let response = await fetch(apiURL + '/api/ticketiteration/get/' + id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
