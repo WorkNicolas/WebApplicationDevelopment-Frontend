@@ -87,5 +87,29 @@ const updateTicket = async (id, ticketData) => {
     }
 };
 
+const cancel = async (id) => {
+    try {
+        let response = await fetch(apiURL + '/api/ticket/edit/' + id, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: 'Cancelled' })
+        });
 
-export { list, remove, create, getTicket, updateTicket };
+        // Check for successful response
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to cancel ticket');
+        }
+
+        return await response.json();
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+};
+
+
+export { list, remove, create, getTicket, updateTicket, cancel };

@@ -35,7 +35,6 @@ const MyTickets = () => {
                     <option value="all">All</option>
                     <option value="open" selected="selected">Open</option>
                     <option value="closed">Closed</option>
-                    <option value="cancelled">Cancelled</option>
                 </select>
                 <ListInventory filter={filter} />
             </div>

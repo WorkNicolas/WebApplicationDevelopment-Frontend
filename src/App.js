@@ -29,6 +29,7 @@ import TicketInfo from './components/Ticket/TicketInfo';
 import Announcement from './components/Announcement';
 import EditTicket from './components/Ticket/EditTicket';
 import PrivateRoute from './components/auth/PrivateRoute';
+import EditUser from './components/Users/EditProfile';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
             <Route path="/ticketinfo/:id" element={<TicketInfo />} />
             <Route path="/editticket/:id" element={<EditTicket />} />
             <Route path="/announcement" element={<Announcement />} />
+            <Route path="/editprofile" element={<EditUser />} />
         </Routes>
       </main>
       <Footer />

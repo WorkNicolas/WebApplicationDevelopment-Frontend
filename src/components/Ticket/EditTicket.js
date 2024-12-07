@@ -3,11 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getTicket, updateTicket } from "../../datasource/api-ticket";  // Assuming you have these functions
 import { faListCheck, faScroll, faThermometer } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getRole, getUserId, isAuthenticated } from "../auth/auth-helper";
 
 const EditTicket = () => {
     const { id } = useParams();  // Get the ticket ID from URL params
     const navigate = useNavigate();
-
+    const role = getRole();
     const [ticketData, setTicketData] = useState({
         description: "",
         status: "",
@@ -74,7 +75,7 @@ const EditTicket = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="block">
+                    {(role === "admin") && <div className="block">
                         <FontAwesomeIcon icon={faThermometer} />
                         <label htmlFor="status"></label>
                         <select className="select" onChange={handleChange}>
@@ -83,7 +84,7 @@ const EditTicket = () => {
                             <option value="Closed">Closed</option>
                             <option value="Cancelled">Cancelled</option>
                         </select>
-                    </div>
+                    </div>}
                     <div className="block">
                         <FontAwesomeIcon icon={faListCheck} />
                         <label htmlFor="priority"></label>
