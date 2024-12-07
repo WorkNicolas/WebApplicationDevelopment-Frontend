@@ -4,12 +4,14 @@ import CommentBox from "./CommentBox";
 import Avatar from "./Avatar";
 import { getTicket } from "../../datasource/api-ticket";
 import { create as createComment } from "../../datasource/api-ticketiteration";
-import { getUsername } from "../auth/auth-helper";
+import { getUsername, getRole } from "../auth/auth-helper";
 import formatDate from "../../utils/date";
+import { updateTicket } from "../../datasource/api-ticket";
 
 const TicketInfo = () => {
   const { id } = useParams();
   const username = getUsername();
+  const userRole = getRole();
   const [newComment, setNewComment] = useState("");
   const [ticket, setTicket] = useState();
 
@@ -35,12 +37,36 @@ const TicketInfo = () => {
     }
   };
 
+  const updateToProgress = async () => {
+    try {
+      const response = await updateTicket(id, { status: "In Progress" });
+
+      if (!response.success) {
+        return;
+      }
+
+      getTicket(id).then((data) => {
+        if (data) {
+          setTicket(data[0]);
+        }
+      });
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getTicket(id)
       .then((data) => {
         if (data) {
-          console.log(data[0]);
-          setTicket(data[0]);
+          // success
+          if (data[0].status === "NEW" && userRole === "admin") {
+            // admin view the new ticket, update to in progress
+            updateToProgress();
+          } else {
+            setTicket(data[0]);
+          }
         }
       })
       .catch((err) => {
