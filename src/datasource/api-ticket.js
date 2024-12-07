@@ -1,3 +1,5 @@
+import { getUserId, isAuthenticated } from "../components/auth/auth-helper";
+
 let apiURL = process.env.REACT_APP_APIURL;
 
 const list = async () => {
@@ -50,7 +52,7 @@ const remove = async (id) => {
 // Fetch a single ticket by ID
 const getTicket = async (id) => {
     try {
-        let response = await fetch(apiURL + '/api/ticket/' + id, {
+        let response = await fetch(apiURL + '/api/ticket/get/' + id, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

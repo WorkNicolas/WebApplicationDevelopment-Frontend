@@ -28,19 +28,6 @@ const ListInventory = ({ filter }) => {
             });
     }, []);
 
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this ticket?")) {
-            try {
-                await remove(id);
-                setTicketList((prev) => prev.filter((ticket) => ticket._id !== id));
-                alert("Ticket deleted successfully");
-            } catch (err) {
-                alert(err.message);
-                console.error(err);
-            }
-        }
-    };
-
     const handleCancel = async (id) => {
         if (window.confirm("Are you sure you want to cancel this ticket?")) {
             try {
@@ -63,7 +50,7 @@ const ListInventory = ({ filter }) => {
 
     return (
         <>
-            <button className="addTicket">
+            <button className="addTicket borderRadius">
                 <Link to="/ticketform">Add Ticket</Link>
             </button>
             <table>
@@ -81,20 +68,28 @@ const ListInventory = ({ filter }) => {
                     {filteredTickets.map((ticket) => (
                         <tr key={ticket._id}>
                             <td>
-                                <Link to={`/ticketinfo/${ticket._id}`}>
-                                    {ticket.description || ""}
-                                </Link>
+                            <Link to={{ pathname: `/ticketinfo/${ticket._id}`, state: { ticket } }}>
+                                {ticket.description || "No description"}
+                            </Link>
+
+
                             </td>
                             <td>{ticket.status || ""}</td>
                             <td>{ticket.priority}</td>
                             <td>{ticket.updatedAt || ""}</td>
                             <td>
                                 <Link to={`/editticket/${ticket._id}`}>
-                                    <button>Edit</button>
+                                    <button className="borderRadius" disabled={ticket.status === "Cancelled"}>Edit</button>
                                 </Link>
                             </td>
                             <td>
-                                <button onClick={() => handleCancel(ticket._id)}>Cancel</button>
+                            <button 
+                                className="borderRadius"
+                                onClick={() => handleCancel(ticket._id)} 
+                                disabled={ticket.status === "Cancelled"}
+                            >
+                                Cancel
+                            </button>
                             </td>
                         </tr>
                     ))}

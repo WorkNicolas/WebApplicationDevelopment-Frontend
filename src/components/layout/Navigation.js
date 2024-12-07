@@ -22,9 +22,11 @@ import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons/faCircleQues
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons/faRightToBracket';
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons/faSignOut';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 // api
 import { clearJWT,isAuthenticated } from '../auth/auth-helper';
+import { getUsername } from '../auth/auth-helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -93,6 +95,17 @@ const Navigation = () => {
                 }
                 {
                     isLogin && (
+                        <li className="navbar-item">
+                            <NavLink className="link-text" to="/editprofile">
+                                <FontAwesomeIcon icon={faUser} size="3x" />
+                                <span>{getUsername()}</span>
+                            </NavLink>
+                        </li>
+                    )
+                }
+                {
+                    isLogin && (
+                        
                         <li className="navbar-item"
                             style={{
                                 cursor: 'pointer'
@@ -103,7 +116,6 @@ const Navigation = () => {
                                 navigate('/');
                             }}
                         >
-
                             <span className="link-text last-item">
                                 <FontAwesomeIcon icon={faSignOut} size="3x" />
                                 <span>Logout</span>

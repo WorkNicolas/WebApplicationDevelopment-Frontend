@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { create } from "../../datasource/api-ticket";  // Use the 'create' function from api-ticket.js
 import { faListCheck, faScroll, faThermometer } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getUserId, getUsername, isAuthenticated } from "../auth/auth-helper";
 
 const TicketForm = () => {
     const navigate = useNavigate();
-
+    const userId = getUserId();
+    const username = getUsername();
     const [ticketData, setTicketData] = useState({
-        userId: "674271e84091a6bd09beac38",
+        userId: userId,
         description: "",
         status: "NEW",
         priority: "Medium"
     });
+
+    useEffect(() => {
+        console.log("User ID: " + userId);
+        console.log("Username: " + username);
+    }, []);
+
     const [error, setError] = useState(null);
 
     // Handle input changes

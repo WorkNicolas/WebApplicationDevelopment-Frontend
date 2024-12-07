@@ -5,7 +5,8 @@ const authenticate = (token, cb) => {
         sessionStorage.setItem('token', token);
 
         let decoded = jwtDecode(token);
-        sessionStorage.setItem('username', decoded.username)
+        sessionStorage.setItem('username', decoded.username);
+        sessionStorage.setItem('role', decoded.role);
     }
     cb();
 }
@@ -39,6 +40,14 @@ const getUserId = () => {
     return decoded.id;
 }
 
+const getRole = () => {
+    if (typeof window === "undefined" || !getToken()) {
+        return false;
+    }
+    let decoded = jwtDecode(getToken());
+    return decoded.role; 
+}
+
 const clearJWT = () => {
     console.log("clearing JWT");
     if (typeof window !== "undefined") {
@@ -47,4 +56,4 @@ const clearJWT = () => {
     }
 }
 
-export { authenticate, isAuthenticated, getToken, getUsername, clearJWT, getUserId }
+export { authenticate, isAuthenticated, getToken, getUsername, clearJWT, getUserId, getRole }

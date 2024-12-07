@@ -3,11 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getTicket, updateTicket } from "../../datasource/api-ticket";  // Assuming you have these functions
 import { faListCheck, faScroll, faThermometer } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getUserName, getUserId, isAuthenticated } from "../auth/auth-helper";
+import { getRole, getUserId, isAuthenticated } from "../auth/auth-helper";
 
 const EditTicket = () => {
     const { id } = useParams();  // Get the ticket ID from URL params
     const userId = getUserId();
+    const role = getRole();
     const navigate = useNavigate();
 
     const [ticketData, setTicketData] = useState({
@@ -26,6 +27,7 @@ const EditTicket = () => {
                 console.log("User ID: " + userId);
                 if (data && isAuthenticated) {
                     console.log("User is authenticated");
+                    console.log("User Role is: " + role);
                     setTicketData(data);
                 }
             } catch (err) {
@@ -78,7 +80,7 @@ const EditTicket = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="block">
+                    {(role === "admin") && <div className="block">
                         <FontAwesomeIcon icon={faThermometer} />
                         <label htmlFor="status"></label>
                         <select className="select" onChange={handleChange}>
@@ -86,7 +88,7 @@ const EditTicket = () => {
                             <option value="Dispatched">Dispatched</option>
                             <option value="Closed">Closed</option>
                         </select>
-                    </div>
+                    </div>}
                     <div className="block">
                         <FontAwesomeIcon icon={faListCheck} />
                         <label htmlFor="priority"></label>
