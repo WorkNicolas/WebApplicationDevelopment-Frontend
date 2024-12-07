@@ -11,33 +11,42 @@
 import { useEffect, useState } from "react";
 import { list, remove } from "../../datasource/api-ticket";
 import { Link } from "react-router-dom";
+import { cancel } from "../../datasource/api-ticket";
 
-const ListInventory = () => {
-    let [ticketList, setTicketList] = useState([]);
-
+const ListInventory = ({ filter }) => {
+    const [ticketList, setTicketList] = useState([]);
+    
     useEffect(() => {
-        list().then((data) => {
-            if (data) {
-                setTicketList(data);
-            }
-        }).catch(err => {
-            alert(err.message);
-            console.log(err);
-        });
+        list()
+            .then((data) => {
+                if (data) {
+                    setTicketList(data);
+                }
+            })
+            .catch((err) => {
+                alert(err.message);
+                console.error(err);
+            });
     }, []);
 
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this ticket?")) {
+    const handleCancel = async (id) => {
+        if (window.confirm("Are you sure you want to cancel this ticket?")) {
             try {
-                await remove(id);
-                setTicketList((prev) => prev.filter((ticket) => ticket._id !== id));
-                alert("Ticket deleted successfully");
+                const response = await cancel(id);
+                alert(response.message);
             } catch (err) {
                 alert(err.message);
                 console.error(err);
             }
         }
-    };
+    }
+
+    const filteredTickets = ticketList.filter((ticket) => {
+        if (filter === "all") return true;
+        if (filter === "open") return ticket.status === "NEW" || ticket.status === "In Progress" || ticket.status === "Dispatched";
+        if (filter === "closed") return ticket.status === "Closed" || ticket.status === "Cancelled";
+        return ticket.status === filter;
+    });
 
     return (
         <>
@@ -52,34 +61,33 @@ const ListInventory = () => {
                         <th className="fourth-item">Priority</th>
                         <th className="third-item">Updated</th>
                         <th className="fifth-item">Edit</th>
-                        <th className="sixth-item">Delete</th>
+                        <th className="sixth-item">Cancel</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {ticketList.map((ticket, i) => {
-                        return (
-                            <tr key={i}>
-                                <td>
-                                    <Link to={`/ticketinfo/${ticket._id}`}>
-                                        {ticket.description || ''}
-                                    </Link>
-                                </td>
-                                <td>{ticket.status || ''}</td>
-                                <td>{ticket.priority}</td>
-                                    <td>{ticket.updatedAt || ''}</td>
-                                <td>
-                                    <Link to={`/editticket/${ticket._id}`}>
-                                        <button>Edit</button>
-                                    </Link>
-                                </td>
-                                <td>
-                                    <button onClick={() => handleDelete(ticket._id)}>
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                    {filteredTickets.map((ticket) => (
+                        <tr key={ticket._id}>
+                            <td>
+                                <Link to={`/ticketinfo/${ticket._id}`}>
+                                    {ticket.description || ""}
+                                </Link>
+                            </td>
+                            <td>{ticket.status || ""}</td>
+                            <td>{ticket.priority}</td>
+                            <td>{ticket.updatedAt || ""}</td>
+                            <td>
+                                <Link to={`/editticket/${ticket._id}`}>
+                                    <button>Edit</button>
+                                </Link>
+                            </td>
+                            <button 
+                                onClick={() => handleCancel(ticket._id)} 
+                                disabled={ticket.status === "Cancelled"}
+                            >
+                                Cancel
+                            </button>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </>

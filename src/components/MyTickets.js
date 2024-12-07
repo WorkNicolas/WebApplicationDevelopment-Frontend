@@ -8,9 +8,16 @@
  * @returns {MyTickets}
  */
 
+import React, { useState } from "react"; // Import useState from React
 import ListInventory from "./Ticket/ListInventory";
 
 const MyTickets = () => {
+    const [filter, setFilter] = useState("open"); // Default filter state
+
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+    };
+
     return (
         <>
             <h1>Tickets Dashboard</h1>
@@ -19,18 +26,20 @@ const MyTickets = () => {
             </div>
             <div className="panel-body">
                 <label>View</label>
-                <select name="filter_status" id="filter_status">
-                    <option value="open">Open</option>
+                <select
+                    name="filter_status"
+                    id="filter_status"
+                    value={filter}
+                    onChange={handleFilterChange}
+                >
+                    <option value="all">All</option>
+                    <option value="open" selected="selected">Open</option>
                     <option value="closed">Closed</option>
-                    <option value="new">NEW</option>
-                    <option value="progress">In Progress</option>
-                    <option value="cancelled">Cancelled</option>
                 </select>
-                <ListInventory />
-
+                <ListInventory filter={filter} />
             </div>
         </>
     );
-}
+};
 
 export default MyTickets;

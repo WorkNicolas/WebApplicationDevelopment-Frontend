@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { create } from "../../datasource/api-ticket";  // Use the 'create' function from api-ticket.js
 import { faListCheck, faScroll, faThermometer } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getUserId, getUsername, isAuthenticated } from "../auth/auth-helper";
 
 const TicketForm = () => {
     const navigate = useNavigate();
-
+    const userId = getUserId();
+    const username = getUsername();
     const [ticketData, setTicketData] = useState({
-        userId: "674271e84091a6bd09beac38",
+        userId: userId,
         description: "",
         status: "NEW",
         priority: "Medium"
@@ -68,9 +70,6 @@ const TicketForm = () => {
                             onChange={handleChange}
                         >
                             <option value="In Progress">In Progress</option>
-                            <option value="Dispatched">Dispatched</option>
-                            <option value="Closed">Closed</option>
-                            <option value="Cancelled">Cancelled</option>
                         </select>
                     </div>
                     <div className="block">
