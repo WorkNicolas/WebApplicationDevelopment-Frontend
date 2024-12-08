@@ -12,8 +12,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 //API
 import { signup } from '../../datasource/api-user';
-import { authenticate } from '../auth/auth-helper';
-import { getUserId, getUsername } from '../auth/auth-helper';
+import { authenticate, getUserId, getUsername, getEmail, getPhone } from '../auth/auth-helper';
 
 // redux
 import { useDispatch } from 'react-redux';
@@ -38,9 +37,9 @@ const EditUser = () => {
             [name]: value,
         });
     };
-
-    const userId = getUserId();
     const username = getUsername();
+    const phone = getPhone();
+    const email = getEmail();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -72,12 +71,12 @@ const EditUser = () => {
                     <div className="block">
                         <FontAwesomeIcon icon={faPhone} />
                         <label htmlFor="phone"></label>
-                        <input type="text" id="phone" name="phone" placeholder="Phone Number" onChange={handleChange} />
+                        <input value={phone} type="text" id="phone" name="phone" placeholder="Phone Number" onChange={handleChange} />
                     </div>
                     <div className="block">
                         <FontAwesomeIcon icon={faEnvelope} />
                         <label htmlFor="email"></label>
-                        <input type="text" id="email" name="email" placeholder="Email" onChange={handleChange} />
+                        <input type="text" id="email" value={email} name="email" placeholder="Email" onChange={handleChange} />
                     </div>
                     <div className="block">
                         <FontAwesomeIcon icon={faLock} />

@@ -5,9 +5,10 @@ const authenticate = (token, cb) => {
         sessionStorage.setItem('token', token);
 
         let decoded = jwtDecode(token);
-        sessionStorage.setItem('username', decoded.username)
         sessionStorage.setItem('username', decoded.username);
         sessionStorage.setItem('role', decoded.role);
+        sessionStorage.setItem('email', decoded.email);
+        sessionStorage.setItem('phone', decoded.phone);
     }
     cb();
 }
@@ -57,5 +58,21 @@ const getRole = () => {
     return decoded.role; 
 }
 
+const getEmail = () => {
+    if (typeof window === "undefined" || !getToken()) {
+        return false;
+    }
+    let decoded = jwtDecode(getToken());
+    return decoded.email; 
+}
 
-export { authenticate, isAuthenticated, getToken, getUsername, clearJWT, getUserId, getRole }
+const getPhone = () => {
+    if (typeof window === "undefined" || !getToken()) {
+        return false;
+    }
+    let decoded = jwtDecode(getToken());
+    return decoded.phone; 
+}
+
+
+export { authenticate, isAuthenticated, getToken, getUsername, clearJWT, getUserId, getRole, getEmail, getPhone }

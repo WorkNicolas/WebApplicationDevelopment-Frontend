@@ -9,12 +9,15 @@
  */
 
 import { useEffect, useState } from "react";
-import { list, remove } from "../../datasource/api-ticket";
+import { list } from "../../datasource/api-ticket";
 import { Link } from "react-router-dom";
 import { cancel } from "../../datasource/api-ticket";
+import { getUserId, getRole } from "../auth/auth-helper";
 
 const ListInventory = ({ filter }) => {
     const [ticketList, setTicketList] = useState([]);
+    const userId = getUserId();
+    const role = getRole();
     
     useEffect(() => {
         list()
@@ -27,13 +30,14 @@ const ListInventory = ({ filter }) => {
                 alert(err.message);
                 console.error(err);
             });
-    }, []);
+    }, [ticketList]);
 
     const handleCancel = async (id) => {
         if (window.confirm("Are you sure you want to cancel this ticket?")) {
             try {
                 const response = await cancel(id);
                 alert(response.message);
+                window.location.reload();
             } catch (err) {
                 alert(err.message);
                 console.error(err);
@@ -42,10 +46,19 @@ const ListInventory = ({ filter }) => {
     }
 
     const filteredTickets = ticketList.filter((ticket) => {
-        if (filter === "all") return true;
-        if (filter === "open") return ticket.status === "NEW" || ticket.status === "In Progress" || ticket.status === "Dispatched";
-        if (filter === "closed") return ticket.status === "Closed" || ticket.status === "Cancelled";
-        return ticket.status === filter;
+        if (role === "admin") {
+            if (filter === "all") return true;
+            else if (filter === "open") return ticket.status === "NEW" || ticket.status === "In Progress" || ticket.status === "Dispatched";
+            else if (filter === "closed") return ticket.status === "Closed" || ticket.status === "Cancelled";
+            return ticket.status === filter;
+        }
+        if (ticket.userId === userId) {
+            if (filter === "all") return true;
+            else if (filter === "open") return ticket.status === "NEW" || ticket.status === "In Progress" || ticket.status === "Dispatched";
+            else if (filter === "closed") return ticket.status === "Closed" || ticket.status === "Cancelled";
+            return ticket.status === filter;
+        }
+        return false;
     });
 
     return (
@@ -77,15 +90,21 @@ const ListInventory = ({ filter }) => {
                             <td>{ticket.updatedAt || ""}</td>
                             <td>
                                 <Link to={`/editticket/${ticket._id}`}>
-                                    <button>Edit</button>
+                                    <button
+                                        disabled={ticket.status === "Cancelled" || ticket.status === "Closed"}
+                                    >
+                                        Edit
+                                    </button>
                                 </Link>
                             </td>
-                            <button 
-                                onClick={() => handleCancel(ticket._id)} 
-                                disabled={ticket.status === "Cancelled"}
-                            >
-                                Cancel
-                            </button>
+                            <td>
+                                <button 
+                                    onClick={() => handleCancel(ticket._id)} 
+                                    disabled={ticket.status === "Cancelled" || ticket.status === "Closed"}
+                                >
+                                    Cancel
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
