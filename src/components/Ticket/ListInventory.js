@@ -9,15 +9,17 @@
  */
 
 import { useEffect, useState } from "react";
-import { list, remove } from "../../datasource/api-ticket";
+import { list } from "../../datasource/api-ticket";
 import { Link } from "react-router-dom";
 import { cancel } from "../../datasource/api-ticket";
+import { getUserId } from "../auth/auth-helper";
 
 const ListInventory = ({ filter }) => {
     const [ticketList, setTicketList] = useState([]);
-    
+    const userId = getUserId();
+
     useEffect(() => {
-        list()
+        list(userId)
             .then((data) => {
                 if (data) {
                     setTicketList(data);
