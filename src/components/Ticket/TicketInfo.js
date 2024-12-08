@@ -15,6 +15,8 @@ const TicketInfo = () => {
   const userRole = getRole();
   const [newComment, setNewComment] = useState("");
   const [ticket, setTicket] = useState();
+  const [status, setStatus] = useState("");
+  const [priority, setPriority] = useState("");
 
   const submitComment = async (product) => {
     try {
@@ -37,6 +39,8 @@ const TicketInfo = () => {
       getTicket(id).then((data) => {
         if (data) {
           setTicket(data[0]);
+          setStatus(data[0]?.status);
+          setPriority(data[0]?.priority);
         }
       });
     } catch (err) {
@@ -52,11 +56,35 @@ const TicketInfo = () => {
         return;
       }
 
-      getTicket(id).then((data) => {
-        if (data) {
-          setTicket(data[0]);
-        }
-      });
+      updateTicketInfo();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateStatus = async (newStatus) => {
+    try {
+      const response = await updateTicket(id, { status: newStatus });
+
+      if (!response.success) {
+        return;
+      }
+
+      updateTicketInfo();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updatePriority = async (newPriority) => {
+    try {
+      const response = await updateTicket(id, { priority: newPriority });
+
+      if (!response.success) {
+        return;
+      }
+
+      updateTicketInfo();
     } catch (err) {
       console.log(err);
     }
@@ -72,6 +100,8 @@ const TicketInfo = () => {
             updateToProgress();
           } else {
             setTicket(data[0]);
+            setStatus(data[0]?.status);
+            setPriority(data[0]?.priority);
           }
         }
       })
@@ -101,7 +131,29 @@ const TicketInfo = () => {
             </div>
             <div className="d-flex flex-column">
               <span>Status:</span>
-              <span>{ticket?.status}</span>
+              <span>
+                {userRole === "admin" ? (
+                  <select
+                    className="form-select"
+                    value={status}
+                    onChange={(e) => {
+                      if (
+                        window.confirm(
+                          `Are you sure you want to change the status to ${e.target.value}?`
+                        )
+                      ) {
+                        updateStatus(e.target.value);
+                      }
+                    }}
+                  >
+                    <option value="In Progress">In Progress</option>
+                    <option value="Dispatched">Dispatched</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                ) : (
+                  <span>{status}</span>
+                )}
+              </span>
             </div>
           </div>
         </div>
@@ -110,14 +162,32 @@ const TicketInfo = () => {
         <span className="p-3 border-bottom bg-light text-md h4">
           {ticket?.description}
         </span>
-        <div className="p-3 d-flex gap-4">
-          <div className="d-flex flex-column">
-            <span className="h6 text-muted">{"Created by"}</span>
+        <div className="p-3 d-flex gap-5">
+          <div className="d-flex align-items-center gap-3">
+            <span className="text-muted">{"Created by: "}</span>
             <span>{ticket?.userDetails[0]?.username}</span>
           </div>
-          <div className="d-flex flex-column">
-            <span className="h6 text-muted">{"Priority"}</span>
-            <span>{ticket?.priority}</span>
+          <div className="d-flex gap-3 align-items-center">
+            <span className="text-muted">{"Priority: "}</span>
+            <span>
+              <select
+                className="form-select"
+                value={priority}
+                onChange={(e) => {
+                  if (
+                    window.confirm(
+                      `Are you sure you want to change the priority to ${e.target.value}?`
+                    )
+                  ) {
+                    updatePriority(e.target.value);
+                  }
+                }}
+              >
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </span>
           </div>
         </div>
       </div>
