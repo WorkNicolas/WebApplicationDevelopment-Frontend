@@ -88,10 +88,10 @@ const EditTicket = () => {
                     {(role === "admin") && <div className="block">
                         <FontAwesomeIcon icon={faThermometer} />
                         <label htmlFor="status"></label>
-                        <select className="select" onChange={handleChange} name="status">
+                        <select className="select" onChange={handleChange} name="status" value={ticketData.status}>
                             <option value="In Progress">In Progress</option>
                             <option value="Dispatched">Dispatched</option>
-                            <option value="Closed">Closed</option>
+                            {/* <option value="Closed">Closed</option> */}
                             <option value="Cancelled">Cancelled</option>
                         </select>
                     </div>}

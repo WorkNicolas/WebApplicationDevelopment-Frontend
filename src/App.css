@@ -204,7 +204,7 @@ legend.custom-legend {
     font-weight: bold;
 }
 /* Button */
-input[type="submit"], input[type="reset"], button {
+input[type="submit"], input[type="reset"], input[type="button"], button {
     margin: 1.6%;
     display: inline-block;
     padding: 8px 16px;
