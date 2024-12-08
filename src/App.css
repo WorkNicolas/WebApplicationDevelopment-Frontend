@@ -276,12 +276,20 @@ button {
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+input[type="submit"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 input[type="text"],
 input[type="email"],
 input[type="password"],
 textarea {
-    width: calc(100% - 2rem);
+    
     /* Ensure full-width with padding */
     padding: 10px;
     border: 1px solid var(--bg-tertiary);
@@ -535,4 +543,7 @@ input[type="reset"]:active {
     margin-top: 1rem;
     font-size: 1.1rem;
     font-weight: bold;
+}
+.reset {
+    all: revert;
 }

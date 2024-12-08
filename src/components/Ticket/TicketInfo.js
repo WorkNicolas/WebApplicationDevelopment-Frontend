@@ -17,6 +17,7 @@ const TicketInfo = () => {
   const [ticket, setTicket] = useState();
   const [status, setStatus] = useState("");
   const [priority, setPriority] = useState("");
+  const isDisabled = newComment.trim() === '';
 
   const submitComment = async (product) => {
     try {
@@ -215,6 +216,7 @@ const TicketInfo = () => {
             <button
               className="btn btn-outline-secondary"
               type="button"
+              isDisabled={isDisabled}
               onClick={() =>
                 submitComment({
                   ticketID: id,

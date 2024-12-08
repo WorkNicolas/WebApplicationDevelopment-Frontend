@@ -1,28 +1,48 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getTicket, updateTicket } from "../../datasource/api-ticket";  // Assuming you have these functions
-import { faListCheck, faScroll, faThermometer } from "@fortawesome/free-solid-svg-icons";
+import { getTicket, updateTicket } from "../../datasource/api-ticket";
+import { faListCheck, faScroll, faThermometer, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getRole, getUserId, isAuthenticated } from "../auth/auth-helper";
+import { getRole, getUsername, isAuthenticated } from "../auth/auth-helper";
+import { create as createComment } from "../../datasource/api-ticketiteration";
 
 const EditTicket = () => {
     const { id } = useParams();  // Get the ticket ID from URL params
     const navigate = useNavigate();
+    const username = getUsername();
     const role = getRole();
+    const [newComment, setNewComment] = useState("");
     const [ticketData, setTicketData] = useState({
         description: "",
         status: "",
         priority: "",
         updatedAt: Date.now
     });
+    const [status, setStatus] = useState("");
+    const [priority, setPriority] = useState("");
+    const isDisabled = newComment.trim() === '';
     const [initialTicketData, setInitialTicketData] = useState({});
     const [error, setError] = useState(null);
+
+    const updateTicketInfo = async () => {
+        try {
+          getTicket(id).then((data) => {
+            if (data) {
+              setTicketData(data[0]);
+              setStatus(data[0]?.status);
+              setPriority(data[0]?.priority);
+            }
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
     // Fetch ticket data by ID
     useEffect(() => {
         const fetchTicket = async () => {
             try {
-                const data = await getTicket(id);  // Assuming you have a function to get ticket by ID
+                const data = await getTicket(id);
                 if (data) {
                     setTicketData({
                         description: data[0]?.description,
@@ -51,6 +71,22 @@ const EditTicket = () => {
             [name]: value,
         }));
     };
+
+    const submitComment = async (product) => {
+        try {
+          const response = await createComment(product);
+    
+          if (!response.success) {
+            alert(response.message);
+            return;
+          }
+    
+          setNewComment("");
+          updateTicketInfo();
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -95,6 +131,16 @@ const EditTicket = () => {
                             <option value="Cancelled">Cancelled</option>
                         </select>
                     </div>}
+                    {(role === "admin") && <div className="block">
+                        <FontAwesomeIcon icon={faComment} />
+                        <input
+                            type="text"
+                            placeholder="Leave a comment"
+                            className="w-75 p-2"
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                        />
+                    </div>}
                     <div className="block">
                         <FontAwesomeIcon icon={faListCheck} />
                         <label htmlFor="priority"></label>
@@ -106,7 +152,18 @@ const EditTicket = () => {
                     </div>
                     {error && <p className="text-danger">{error}</p>}
                 </fieldset>
-                <input type="submit" value="Submit" />
+                <input 
+                    type="submit" 
+                    value="Submit"
+                    disabled={isDisabled} 
+                    onClick={() =>
+                    submitComment({
+                        ticketID: id,
+                        comment: newComment,
+                        username: username,
+                    })
+                    }
+                    />
                 <input type="button" value="Reset" onClick={() => setTicketData(initialTicketData)} />
             </form>
         </div>

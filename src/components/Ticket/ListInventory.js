@@ -87,13 +87,17 @@ const ListInventory = ({ filter }) => {
                             <td>{formatDate(ticket.updatedAt) || ""}</td>
                             <td>
                                 <Link to={`/editticket/${ticket._id}`}>
-                                    <button>Edit</button>
+                                    <button
+                                        disabled={ticket.status === "Cancelled" || ticket.status === "Closed"}
+                                    >
+                                        Edit
+                                    </button>
                                 </Link>
                             </td>
                             <td>
                                 <button
                                     onClick={() => handleCancel(ticket._id)}
-                                    disabled={ticket.status === "Cancelled"}
+                                    disabled={ticket.status === "Cancelled" || ticket.status === "Closed"}
                                 >
                                     Cancel
                                 </button>
