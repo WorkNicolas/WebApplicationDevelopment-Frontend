@@ -15,6 +15,7 @@ const EditTicket = () => {
         priority: "",
         updatedAt: Date.now
     });
+    const [initialTicketData, setInitialTicketData] = useState({});
     const [error, setError] = useState(null);
 
     // Fetch ticket data by ID
@@ -23,7 +24,16 @@ const EditTicket = () => {
             try {
                 const data = await getTicket(id);  // Assuming you have a function to get ticket by ID
                 if (data) {
-                    setTicketData(data);
+                    setTicketData({
+                        description: data[0]?.description,
+                        status: data[0]?.status,
+                        priority: data[0]?.priority,
+                    });
+                    setInitialTicketData({
+                        description: data[0]?.description,
+                        status: data[0]?.status,
+                        priority: data[0]?.priority,
+                    });
                 }
             } catch (err) {
                 setError("Failed to fetch ticket data");
@@ -88,7 +98,7 @@ const EditTicket = () => {
                     <div className="block">
                         <FontAwesomeIcon icon={faListCheck} />
                         <label htmlFor="priority"></label>
-                        <select className="select" onChange={handleChange} name="priority">
+                        <select className="select" onChange={handleChange} name="priority" value={ticketData.priority}>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
@@ -97,7 +107,7 @@ const EditTicket = () => {
                     {error && <p className="text-danger">{error}</p>}
                 </fieldset>
                 <input type="submit" value="Submit" />
-                <input type="reset" value="Reset" />
+                <input type="button" value="Reset" onClick={() => setTicketData(initialTicketData)} />
             </form>
         </div>
     );
