@@ -74,7 +74,7 @@ const TicketInfo = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const updatePriority = async (newPriority) => {
     try {
@@ -88,7 +88,7 @@ const TicketInfo = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     getTicket(id)
@@ -132,17 +132,27 @@ const TicketInfo = () => {
             <div className="d-flex flex-column">
               <span>Status:</span>
               <span>
-                <select className="form-select" value={status} onChange={
-                  (e) => {
-                    if (window.confirm(`Are you sure you want to change the status to ${e.target.value}?`)) {
-                      updateStatus(e.target.value);
-                    }
-                  }
-                }>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Dispatched">Dispatched</option>
-                  <option value="Cancelled">Cancelled</option>
-                </select>
+                {userRole === "admin" ? (
+                  <select
+                    className="form-select"
+                    value={status}
+                    onChange={(e) => {
+                      if (
+                        window.confirm(
+                          `Are you sure you want to change the status to ${e.target.value}?`
+                        )
+                      ) {
+                        updateStatus(e.target.value);
+                      }
+                    }}
+                  >
+                    <option value="In Progress">In Progress</option>
+                    <option value="Dispatched">Dispatched</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                ) : (
+                  <span>{status}</span>
+                )}
               </span>
             </div>
           </div>
@@ -160,13 +170,19 @@ const TicketInfo = () => {
           <div className="d-flex gap-3 align-items-center">
             <span className="text-muted">{"Priority: "}</span>
             <span>
-              <select className="form-select" value={priority} onChange={
-                (e) => {
-                  if (window.confirm(`Are you sure you want to change the priority to ${e.target.value}?`)) {
+              <select
+                className="form-select"
+                value={priority}
+                onChange={(e) => {
+                  if (
+                    window.confirm(
+                      `Are you sure you want to change the priority to ${e.target.value}?`
+                    )
+                  ) {
                     updatePriority(e.target.value);
                   }
-                }
-              }>
+                }}
+              >
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
