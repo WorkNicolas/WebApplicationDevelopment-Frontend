@@ -9,8 +9,8 @@ const Footer = () => {
                 <a href="https://www.linkedin.com/in/TicketMaster/" >
                     <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn Profile Link" />
                 </a>
-                <a href="https://twitter.com/TicketMaster/" >
-                    <img src="https://skillicons.dev/icons?i=twitter" alt="Twitter Profile Link" />
+                <a href="https://x.com/TicketMaster/" >
+                    <img src="https://skillicons.dev/icons?i=twitter" alt="X Profile Link" />
                 </a>
                 <a href="https://github.com/TicketMaster" >
                     <img src="https://skillicons.dev/icons?i=github" alt="GitHub Profile Link" />

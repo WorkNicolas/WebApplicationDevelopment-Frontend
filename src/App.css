@@ -6,26 +6,29 @@
  * @description Contains the CSS file for App.js
  * 
  */
- * {
+* {
     box-sizing: border-box;
     border-collapse: collapse;
- }
- html {
+}
+
+html {
     margin-top: -1.2%;
     padding: 0;
     ;
- }
- :root {
+}
+
+:root {
     font-size: 16px;
     font-family: sans-serif;
     --text-primary: #575353;
     --text-secondary: #6e6161;
     --text-alt-primary:
-    --bg-primary: #f2f2f2;
+        --bg-primary: #f2f2f2;
     --bg-secondary: #d2d0ca;
     --bg-tertiary: gray;
     --bg-unique: #e6e3d9;
 }
+
 /* Color Scheme */
 body {
     background-color: var(--bg-primary);
@@ -33,13 +36,22 @@ body {
     margin: 0;
     padding: 0;
 }
+
 header {
     background-color: var(--bg-secondary);
     border-bottom: 1px solid var(--bg-tertiary);
 }
+
 header h1 {
     color: var(--text-primary);
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 10px;
 }
+
 footer {
     margin-top: auto;
     background-color: var(--bg-secondary);
@@ -49,28 +61,41 @@ footer {
     font-size: 12px;
     margin-left: 5rem;
 }
+
+footer a:hover {
+    color: var(--text-primary);
+}
+
 footer a img {
     padding-left: 10px;
     padding-right: 10px;
 }
-nav, aside {
+
+nav,
+aside {
     background-color: var(--bg-unique);
     border-right: var(--bg-tertiary) solid 1px;
 }
+
 main {
     margin-left: 5rem;
     min-height: 94vh;
     display: flex;
     flex-direction: column;
 }
+
 body::-webkit-scrollbar {
     width: 0.25rem;
+    background-color: var(--bg-unique);
 }
+
 body::-webkit-scrollbar-track {
     background: var(--bg-secondary);
 }
+
 body::-webkit-scrollbar-thumb {
     background: var(--bg-tertiary);
+    border-radius: 4px;
 }
 
 /* Navigation */
@@ -92,41 +117,56 @@ body::-webkit-scrollbar-thumb {
 main {
     margin-right: 1.6%;
 }
-main h1, h2, h3 {
+
+main h1,
+h2,
+h3 {
     margin: 1.6%;
 }
+
 main li {
     margin-bottom: 1.6%;
 }
-main img, iframe, figcaption{
+
+main img,
+iframe,
+figcaption {
     margin-left: 1.6%;
 }
+
 figcaption {
     font-style: italic;
 }
+
 main p {
     margin-right: 1.6%;
     margin-left: 1.6%;
     text-align: justify;
     line-height: 2;
 }
+
 main h2 {
     border-bottom: 0.2px solid var(--bg-secondary);
 }
+
 /* Contact Classes */
-.block { 
+.block {
     display: block;
     margin: 0;
     padding: 10px;
 }
+
 /* Inputs */
 fieldset {
     margin-bottom: 10px !important;
     margin: 1.6% !important;
 }
+
 fieldset.custom-fieldset {
-    border: 1px solid #ccc; /* Original border style */
-    padding: 10px; /* Original padding */
+    border: 1px solid #ccc;
+    /* Original border style */
+    padding: 10px;
+    /* Original padding */
     position: relative;
 }
 
@@ -136,16 +176,25 @@ textarea {
     width: 95%;
     height: 150px;
 }
+
 textarea.message {
     margin-left: 1.6%;
     background: transparent;
-    border:1px solid var(--text-secondary);
+    border: 1px solid var(--text-secondary);
 }
+
 /* Inputs */
-input[type="submit"], input[type="reset"], button {
+input[type="submit"],
+input[type="reset"],
+button {
     border-radius: 5px;
 }
-input[type="text"], input[type="email"], input[type="number"], input[type="password"], select {
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select {
     margin-left: 1.6%;
     background: transparent;
     border: none;
@@ -156,6 +205,7 @@ input[type="text"], input[type="email"], input[type="number"], input[type="passw
     margin-left: 1.6%;
     width: 185px;
 }
+
 /* Panel */
 .panel {
     background-color: var(--bg-secondary);
@@ -163,12 +213,14 @@ input[type="text"], input[type="email"], input[type="number"], input[type="passw
     width: 75%;
     padding: 1.6%;
 }
+
 .panel-body {
     background-color: var(--bg-unique);
     margin-left: 1.6%;
     width: 75%;
     padding: 1.6%;
 }
+
 .panel h3 {
     border-bottom: 1px solid var(--bg-tertiary);
 }
@@ -181,20 +233,23 @@ legend {
 legend.custom-legend {
     width: auto;
     font-weight: bold;
-    position: absolute; 
-    top: -20px; 
+    position: absolute;
+    top: -20px;
     left: 10px;
-    background-color: white; 
+    background-color: white;
     padding: 0 5px;
 }
 
 /* Table */
-.panel-body th, .panel-body tr, .panel-body td {
+.panel-body th,
+.panel-body tr,
+.panel-body td {
     border: 1px solid var(--text-secondary);
     border-left: 0px;
     border-right: 0px;
     padding: 10px;
 }
+
 .panel-body th {
     background-color: var(--bg-tertiary)
 }
@@ -203,8 +258,12 @@ legend.custom-legend {
 .bold {
     font-weight: bold;
 }
+
 /* Button */
-input[type="submit"], input[type="reset"], input[type="button"], button {
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
     margin: 1.6%;
     display: inline-block;
     padding: 8px 16px;
@@ -218,16 +277,43 @@ input[type="submit"], input[type="reset"], input[type="button"], button {
     transition: background-color 0.2s ease-in-out;
 }
 
-input[type="submit"]:hover, input[type="reset"]:hover {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    width: calc(100% - 2rem);
+    /* Ensure full-width with padding */
+    padding: 10px;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 6px;
+    background-color: var(--bg-unique);
+    color: var(--text-primary);
+    transition: all 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--bg-secondary);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
     background-color: var(--bg-unique);
 }
 
-input[type="submit"]:active, input[type="reset"]:active {
+input[type="submit"]:active,
+input[type="reset"]:active {
     background-color: #d6d6d6;
 }
+
 .addTicket {
     margin: 1.6%;
 }
+
 .addTicket a {
     text-decoration: none;
     color: var(--text-primary);
@@ -251,21 +337,37 @@ input[type="submit"]:active, input[type="reset"]:active {
         width: 100vw;
         height: 5rem;
     }
+
     .navbar-nav {
         list-style: none;
-        padding: 0;
+        /* padding: 0; */
         margin: 0;
         display: flex;
         flex-direction: row;
         align-items: center;
+        padding: 10px 15px;
+        border-radius: 6px;
+        /* Round edges for nav links */
+        transition: all 0.3s ease-in-out;
+        /* Smooth hover effect */
     }
+
+    .navbar-nav .nav-link:hover {
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+        transform: scale(1.05);
+        /* Slight zoom effect on hover */
+    }
+
     .navbar-item {
         padding: 0.5rem;
         width: 100%;
     }
+
     header {
         display: none;
     }
+
     .nav-link {
         display: flex;
         align-items: center;
@@ -275,26 +377,37 @@ input[type="submit"]:active, input[type="reset"]:active {
         filter: grayscale(0%) opacity(0.7);
         transition: 600ms;
     }
+
     .navbar-item:hover {
         filter: grayscale(100%) opacity(0.4);
         background-color: var(--text-secondary);
     }
+
+    .navbar-nav .nav-link span {
+        margin-left: 8px;
+        /* Add spacing between icon and text */
+    }
+
     .link-text {
         justify-content: center;
         color: var(--text-primary);
     }
+
     .link-text span {
         display: none;
     }
+
     main {
         margin: 0;
     }
+
     footer {
         margin-bottom: 5rem;
         margin-left: 0;
     }
-    
+
 }
+
 /* Larger Screens */
 @media only screen and (min-width: 600px) {
     .my-navbar {
@@ -304,6 +417,7 @@ input[type="submit"]:active, input[type="reset"]:active {
         position: fixed;
         transition: width 200ms ease;
     }
+
     .navbar-nav {
         list-style: none;
         padding: 0;
@@ -312,10 +426,32 @@ input[type="submit"]:active, input[type="reset"]:active {
         flex-direction: column;
         align-items: center;
     }
+
+    .navbar-nav .nav-link {
+        padding: 10px 15px;
+        border-radius: 6px;
+        /* Round edges for nav links */
+        transition: all 0.3s ease-in-out;
+        /* Smooth hover effect */
+    }
+
+    .navbar-nav .nav-link:hover {
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+        transform: scale(1.05);
+        /* Slight zoom effect on hover */
+    }
+
+    .navbar-nav .nav-link span {
+        margin-left: 8px;
+        /* Add spacing between icon and text */
+    }
+
     .navbar-item {
         padding: 0.5rem;
         width: 100%;
     }
+
     .nav-link {
         display: flex;
         align-items: center;
@@ -325,30 +461,78 @@ input[type="submit"]:active, input[type="reset"]:active {
         filter: grayscale(0%) opacity(0.7);
         transition: 600ms;
     }
+
     .navbar-item:hover {
         filter: grayscale(100%) opacity(0.4);
         background-color: var(--bg-secondary);
     }
+
     .link-text {
         display: flex;
         align-items: center;
         color: var(--text-primary);
         text-decoration: none;
     }
+
     .link-text span {
         display: none;
         margin-left: 1rem;
     }
+
     .nav-link {
         min-width: 2rem;
         margin: 0 1.5rem;
     }
+
     .my-navbar:hover {
         width: 16rem;
     }
-    .my-navbar:hover span{
+
+    .my-navbar:hover span {
         display: flex;
         flex-direction: row;
         color: var(--text-primary);
     }
+}
+
+.quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.quick-link {
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-secondary);
+    background-color: var(--bg-unique);
+    padding: 1.5rem;
+    border: 1px solid var(--bg-tertiary);
+    border-radius: 12px;
+    /* Softer corners */
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    transition: all 0.3s ease;
+    /* Smooth hover animation */
+}
+
+.quick-link:hover {
+    background-color: var(--bg-secondary);
+    /* Lighter background on hover */
+    color: var(--text-primary);
+    /* Contrast text on hover */
+    transform: translateY(-5px);
+    /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    /* Enhance hover shadow */
+}
+
+.quick-link p {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
