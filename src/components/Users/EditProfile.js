@@ -1,5 +1,5 @@
 //React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // FontAwesome
@@ -8,7 +8,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
-import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+// import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 //API
 import { signup } from '../../datasource/api-user';
@@ -25,7 +25,7 @@ const EditUser = () => {
         phone: '',
         email: '',
         password: '',
-        role: 'user',
+        role: '',
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const EditUser = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        signup(formData).then((response) => {
+        editProfile(userId,formData).then((response) => {
             if(response && response.success){
                 setError(null);
                 authenticate(response.token,()=>{
@@ -58,6 +58,12 @@ const EditUser = () => {
         });
     };
     
+    useEffect(() => {
+        getUser(userId).then((response) => {
+            setFormData(response);
+        });
+    }, []);
+
     return (
         <div className="mt-3">
             <form onSubmit={handleSubmit}>
@@ -66,7 +72,7 @@ const EditUser = () => {
                     <div className="block">
                         <FontAwesomeIcon icon={faCircleInfo} />
                         <label htmlFor="username"></label>
-                        <input type="text" id="username" value={username} name="username" placeholder="Name" onChange={handleChange} />
+                        <input type="text" id="username" value={formData?.username } name="username" placeholder="Name" onChange={handleChange} />
                     </div>
                     <div className="block">
                         <FontAwesomeIcon icon={faPhone} />
@@ -81,15 +87,16 @@ const EditUser = () => {
                     <div className="block">
                         <FontAwesomeIcon icon={faLock} />
                         <label htmlFor="password"></label>
-                        <input type="password" id="password" name="password" placeholder="Password" onChange={handleChange} />
+                        <input type="password" id="password" name="password" value={formData?.password || ''} placeholder="Password" onChange={handleChange} />
                     </div>
-                    <div className="block">
+                    {/* wont't let user change role */}
+                    {/* <div className="block">
                         <FontAwesomeIcon icon={faUser} />
-                        <select name="role" id="role" onChange={handleChange} style={{ marginLeft: '1.6%' }}>
+                        <select name="role" id="role" onChange={handleChange} style={{ marginLeft: '1.6%' }} value={formData?.role}>
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>
-                    </div>
+                    </div> */}
                     {error && <p className="text-danger">{error}</p>}
                 </fieldset>
                 <input type="submit" value="Submit" />
