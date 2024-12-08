@@ -48,7 +48,7 @@ const EditTicket = () => {
         try {
             const response = await updateTicket(id, ticketData);
             if (response && response.success) {
-                navigate("/ticketlist"); 
+                navigate("/mytickets"); 
             } else {
                 setError("Failed to update ticket");
             }
