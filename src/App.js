@@ -1,7 +1,10 @@
-/**
+/*
+ * Web App: Ticket Master
+ * Authors: Mendoza, Carl Nicolas – 301386435
+            To, Cheuk Man Edmond– 301378748
+            Dou, Fang – 301381266
+            HUI, LIT TUNG – 301387861
  * @file App.js
- * @author Carl Nicolas Mendoza
- * @id 301386435
  * @date 2024-10-11
  * @description Displays all the components, styles, and layouts of the webapp.
  * 

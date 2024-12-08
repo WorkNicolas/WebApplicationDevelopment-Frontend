@@ -1,3 +1,11 @@
+/*
+ * Web App: Ticket Master
+ * Authors: Mendoza, Carl Nicolas – 301386435
+            To, Cheuk Man Edmond– 301378748
+            Dou, Fang – 301381266
+            HUI, LIT TUNG – 301387861
+*/
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from '@fortawesome/free-solid-svg-icons/faPhone';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons/faEnvelope';
