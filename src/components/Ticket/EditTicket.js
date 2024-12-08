@@ -1,3 +1,11 @@
+/*
+ * Web App: Ticket Master
+ * Authors: Mendoza, Carl Nicolas – 301386435
+            To, Cheuk Man Edmond– 301378748
+            Dou, Fang – 301381266
+            HUI, LIT TUNG – 301387861
+*/
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTicket, updateTicket } from "../../datasource/api-ticket";  // Assuming you have these functions
