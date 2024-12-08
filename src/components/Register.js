@@ -89,13 +89,13 @@ const Register = () => {
                         <label htmlFor="password"></label>
                         <input type="password" id="password" name="password" placeholder="Password" onChange={handleChange} />
                     </div>
-                    <div className="block">
+                    {/* <div className="block">
                         <FontAwesomeIcon icon={faUser} />
                         <select name="role" id="role" onChange={handleChange} style={{ marginLeft: '1.6%' }}>
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>
-                    </div>
+                    </div> */}
                     {error && <p className="text-danger">{error}</p>}
                 </fieldset>
                 <input type="submit" value="Submit" />
