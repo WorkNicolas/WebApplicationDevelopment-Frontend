@@ -13,6 +13,7 @@ import { list } from "../../datasource/api-ticket";
 import { Link } from "react-router-dom";
 import { cancel } from "../../datasource/api-ticket";
 import { getUserId } from "../auth/auth-helper";
+import formatDate from "../../utils/date";
 
 const ListInventory = ({ filter }) => {
     const [ticketList, setTicketList] = useState([]);
@@ -76,7 +77,7 @@ const ListInventory = ({ filter }) => {
                             </td>
                             <td>{ticket.status || ""}</td>
                             <td>{ticket.priority}</td>
-                            <td>{ticket.updatedAt || ""}</td>
+                            <td>{formatDate(ticket.updatedAt) || ""}</td>
                             <td>
                                 <Link to={`/editticket/${ticket._id}`}>
                                     <button>Edit</button>
