@@ -83,12 +83,14 @@ const ListInventory = ({ filter }) => {
                                     <button>Edit</button>
                                 </Link>
                             </td>
-                            <button 
-                                onClick={() => handleCancel(ticket._id)} 
-                                disabled={ticket.status === "Cancelled"}
-                            >
-                                Cancel
-                            </button>
+                            <td>
+                                <button
+                                    onClick={() => handleCancel(ticket._id)}
+                                    disabled={ticket.status === "Cancelled"}
+                                >
+                                    Cancel
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
