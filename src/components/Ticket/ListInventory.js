@@ -37,6 +37,13 @@ const ListInventory = ({ filter }) => {
             try {
                 const response = await cancel(id);
                 alert(response.message);
+                list(userId)
+                    .then((data) => {
+                        if (data) {
+                            setTicketList(data);
+                        }
+                    })
+                   
             } catch (err) {
                 alert(err.message);
                 console.error(err);
