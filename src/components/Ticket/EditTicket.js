@@ -78,7 +78,7 @@ const EditTicket = () => {
                     {(role === "admin") && <div className="block">
                         <FontAwesomeIcon icon={faThermometer} />
                         <label htmlFor="status"></label>
-                        <select className="select" onChange={handleChange}>
+                        <select className="select" onChange={handleChange} name="status">
                             <option value="In Progress">In Progress</option>
                             <option value="Dispatched">Dispatched</option>
                             <option value="Closed">Closed</option>
@@ -88,7 +88,7 @@ const EditTicket = () => {
                     <div className="block">
                         <FontAwesomeIcon icon={faListCheck} />
                         <label htmlFor="priority"></label>
-                        <select className="select" onChange={handleChange}>
+                        <select className="select" onChange={handleChange} name="priority">
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
